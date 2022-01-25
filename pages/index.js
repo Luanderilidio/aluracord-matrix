@@ -38,7 +38,7 @@ function HomePage() {
     <div>
       <GlobalStyles/>
       <h1>
-        Boas Vindas de Volta!
+        Boas Vindas de Volta! luander
       </h1>
       <h2>
         Boas Vindas de Volta!
