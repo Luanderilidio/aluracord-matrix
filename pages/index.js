@@ -20,7 +20,7 @@ function Titulo(props) {
 }
 
 export default function PaginaInicial() {
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState("luanderilidio");
   const roteamento = useRouter()
 
   return (
@@ -171,7 +171,7 @@ export default function PaginaInicial() {
               {username}
             </Text>
 
-            <Text
+            {/* <Text
               variant="body4"
               styleSheet={{
                 color: appConfig.theme.colors.neutrals[200],
@@ -182,7 +182,7 @@ export default function PaginaInicial() {
               }}
             >
               {username}
-            </Text>
+            </Text> */}
           </Box>
           {/* Photo Area */}
         </Box>
