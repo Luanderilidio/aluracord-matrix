@@ -3,7 +3,6 @@ import * as Styles from "../styles/chat.js";
 import React, { useState } from "react";
 import appConfig from "../config.json";
 import ListItem from "@mui/material/ListItem";
-import Divider from "@mui/material/Divider";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
@@ -133,7 +132,7 @@ function Header() {
         }}
       >
         <Text variant="heading5">Chat</Text>
-        <Text variant="heading5">Seles Presidente 2022</Text>
+        <Text variant="heading5">Imersão React Alura</Text>
         <Button
           variant="tertiary"
           colorVariant="neutral"
