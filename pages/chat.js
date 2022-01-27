@@ -1,6 +1,13 @@
 import { Box, Text, TextField, Image, Button } from "@skynexui/components";
+import * as Styles from "../styles/chat.js";
 import React, { useState } from "react";
 import appConfig from "../config.json";
+import ListItem from "@mui/material/ListItem";
+import Divider from "@mui/material/Divider";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
 
 export default function ChatPage() {
   // Sua lógica vai aqui
@@ -65,7 +72,6 @@ export default function ChatPage() {
             display: "flex",
             flex: 1,
             height: "80%",
-            border: "1px solid red",
             backgroundColor: appConfig.theme.colors.neutrals[600],
             flexDirection: "column",
             justifyContent: "end",
@@ -126,7 +132,8 @@ function Header() {
           justifyContent: "space-between",
         }}
       >
-        <Text variant="heading5">Chat da RAPAZIADAAAAA</Text>
+        <Text variant="heading5">Chat</Text>
+        <Text variant="heading5">Seles Presidente 2022</Text>
         <Button
           variant="tertiary"
           colorVariant="neutral"
@@ -141,62 +148,55 @@ function Header() {
 function MessageList(props) {
   console.log("MessageList", props);
   return (
-    <Box
-      tag="ul"
-      styleSheet={{
-        overflow: "scroll",
-        display: "flex",
-        flexDirection: "column-reverse",
-        flex: 1,
-        color: appConfig.theme.colors.neutrals["000"],
-        marginBottom: "16px",
-      }}
-    >
+
+    <Styles.BoxMessageList>
       {props.mensagens.map((mensagem) => {
         return (
-          <Text
-            key={mensagem.id}
-            tag="li"
-            styleSheet={{
-              borderRadius: "5px",
-              padding: "6px",
-              marginBottom: "12px",
-              hover: {
-                backgroundColor: appConfig.theme.colors.neutrals[700],
-              },
-            }}
-          >
-            <Box
-              styleSheet={{
-                marginBottom: "8px",
-              }}
-            >
-              <Image
-                styleSheet={{
-                  width: "20px",
-                  height: "20px",
-                  borderRadius: "50%",
-                  display: "inline-block",
-                  marginRight: "8px",
-                }}
-                src={`https://github.com/vanessametonini.png`}
+          <ListItem alignItems="flex-start">
+            <ListItemAvatar>
+              <Avatar
+                alt="Remy Sharp"
+                src="https://github.com/luanderilidio.png"
               />
-              <Text tag="strong">{mensagem.autor}</Text>
-              <Text
-                styleSheet={{
-                  fontSize: "10px",
-                  marginLeft: "8px",
-                  color: appConfig.theme.colors.neutrals[300],
-                }}
-                tag="span"
-              >
-                {new Date().toLocaleDateString()}
-              </Text>
-            </Box>
-            {mensagem.texto}
-          </Text>
+            </ListItemAvatar>
+            <ListItemText
+              primary={
+                <React.Fragment>
+                  <Styles.Container>
+                    <Typography
+                      sx={{ display: "inline", marginRight: "5px" }}
+                      component="span"
+                      variant="body1"
+                      color="secundary"
+                    >
+                      {mensagem.autor}
+                    </Typography>
+                    <Typography
+                      sx={{ display: "inline" }}
+                      component="span"
+                      variant="caption"
+                      color="primary"
+                    >
+                      {new Date().toLocaleDateString()}
+                    </Typography>
+                  </Styles.Container>
+                </React.Fragment>
+              }
+              secondary={
+                <React.Fragment>
+                  <Typography
+                    sx={{ display: "inline", color: "#FFFFFF" }}
+                    component="span"
+                    variant="body2"
+                  >
+                    {mensagem.texto}
+                  </Typography>
+                </React.Fragment>
+              }
+            />
+          </ListItem>
         );
       })}
-    </Box>
+    </Styles.BoxMessageList>
   );
 }
