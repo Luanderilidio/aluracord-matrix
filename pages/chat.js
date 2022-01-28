@@ -1,41 +1,52 @@
-import { Box, Text, TextField, Image, Button } from "@skynexui/components";
+import { Box, Text, TextField, Button } from "@skynexui/components";
 import * as Styles from "../styles/chat.js";
-import React, { useState } from "react";
+import React from "react";
 import appConfig from "../config.json";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
+import { createClient } from "@supabase/supabase-js";
+
+const SUPABASE_ANON_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzI5NjYwNiwiZXhwIjoxOTU4ODcyNjA2fQ.5pN6Nv8gcgflExxP4LBM49Bhf1VusdXiwlkWtHTBMaY";
+const SUPABASE_URL = "https://pjzucaivptnxzdfucecp.supabase.co";
+const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 export default function ChatPage() {
-  // Sua lógica vai aqui
-  /*
-    Usuario
-    - USuario digita no campo textarera
-    - apertar enter para enviar
-    - tem que adicionar o texto em uma lista
+  const [mensagem, setMensagem] = React.useState("");
+  const [listaDeMensagens, setListaDeMensagens] = React.useState([]);
 
-    Dev
-    - [x] campo criado
-    - [x] vamos usar onChange, usar o UseState (ter um IF caso seja enter pra limpar a variavel)
-    - [x] lista de mensagem
-  */
-
-  const [mensagem, setMensagem] = useState("");
-  const [listMensagem, setListMensagem] = useState([]);
+  React.useEffect(() => {
+    supabaseClient
+      .from("mensagens")
+      .select("*")
+      .order("id", { ascending: false })
+      .then(({ data }) => {
+        console.log("Dados da consulta:", data);
+        setListaDeMensagens(data);
+      });
+  }, []);
 
   function handleNovaMensagem(novaMensagem) {
     const mensagem = {
-      id: listMensagem.length + 1,
-      autor: "Luander",
+      // id: listaDeMensagens.length + 1,
+      autor: "vanessametonini",
       texto: novaMensagem,
     };
-    setListMensagem([mensagem, ...listMensagem]);
+
+    supabaseClient
+      .from("mensagens")
+      .insert([mensagem])
+      .then(({ data }) => {
+        console.log("Criando mensagem: ", data);
+        setListaDeMensagens([data[0], ...listaDeMensagens]);
+      });
+
     setMensagem("");
   }
 
-  // ./Sua lógica vai aqui
   return (
     <Box
       styleSheet={{
@@ -73,12 +84,11 @@ export default function ChatPage() {
             height: "80%",
             backgroundColor: appConfig.theme.colors.neutrals[600],
             flexDirection: "column",
-            justifyContent: "end",
             borderRadius: "5px",
             padding: "16px",
           }}
         >
-          <MessageList mensagens={listMensagem} />
+          <MessageList mensagens={listaDeMensagens} />
 
           <Box
             as="form"
@@ -132,7 +142,6 @@ function Header() {
         }}
       >
         <Text variant="heading5">Chat</Text>
-        <Text variant="heading5">Imersão React Alura</Text>
         <Button
           variant="tertiary"
           colorVariant="neutral"
@@ -145,17 +154,16 @@ function Header() {
 }
 
 function MessageList(props) {
-  console.log("MessageList", props);
+  console.log(props);
   return (
-
     <Styles.BoxMessageList>
       {props.mensagens.map((mensagem) => {
         return (
-          <ListItem alignItems="flex-start">
+          <ListItem alignItems="flex-start" key={mensagem.id}>
             <ListItemAvatar>
               <Avatar
                 alt="Remy Sharp"
-                src="https://github.com/luanderilidio.png"
+                src={`https://github.com/${mensagem.autor}.png`}
               />
             </ListItemAvatar>
             <ListItemText

@@ -109,19 +109,7 @@ export default function PaginaInicial() {
                 },
               }}
             />
-            {/* <input
-              value={username}
-              onChange={ function (event) {
-                
-                // aonde tá o valor?
-                const valor = event.target.value
-                
-                console.log(valor)
-
-                // altera a variavel e somente a div na dom que tem essa variavel
-                setUsername(valor)
-              }}
-            ></input> */}
+    
             <Button
               type="submit"
               label="Entrar"
@@ -171,18 +159,6 @@ export default function PaginaInicial() {
               {username}
             </Text>
 
-            {/* <Text
-              variant="body4"
-              styleSheet={{
-                color: appConfig.theme.colors.neutrals[200],
-                backgroundColor: appConfig.theme.colors.neutrals[900],
-                padding: "3px 10px",
-                margin: '5px',
-                borderRadius: "1000px",
-              }}
-            >
-              {username}
-            </Text> */}
           </Box>
           {/* Photo Area */}
         </Box>

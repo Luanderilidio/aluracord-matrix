@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import appConfig from "../config.json";
+
 
 export const Container = styled.div`
   display: flex;
