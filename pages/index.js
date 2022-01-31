@@ -63,7 +63,7 @@ export default function PaginaInicial() {
             onSubmit={function (event){
               // retira o comportamento padrão do formulario
               event.preventDefault()
-              roteamento.push('/chat')
+              roteamento.push(`/chat?username=${username}`)
             }}
             styleSheet={{
               display: "flex",
@@ -93,7 +93,7 @@ export default function PaginaInicial() {
                 // aonde tá o valor?
                 const valor = entrada.target.value
                 
-                console.log(valor)
+                // console.log(valor)
 
                 // altera a variavel e somente a div na dom que tem essa variavel
                 setUsername(valor)
